@@ -201,14 +201,22 @@ def get_pubchem_data(compound_name):
 
 # --- RDKIT MOLECULE IMAGE ---
 def smiles_to_image(smiles, mol_size=(300,300)):
-    """Converts SMILES to a PIL Image of the molecule."""
+    """Converts SMILES to a PIL Image of the molecule with fallback."""
     if not smiles:
         return None
-    mol = Chem.MolFromSmiles(smiles)
-    if mol is None:
-        return None
+        
     try:
-        img = Draw.MolToImage(mol, size=mol_size)
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return None
+            
+        # Try different rendering methods
+        try:
+            img = Draw.MolToImage(mol, size=mol_size)
+        except Exception:
+            # Fallback to legacy rendering
+            img = Draw.MolToImage(mol, size=mol_size, kekulize=False)
+            
         return img
     except Exception as e:
         st.error(f"Could not generate molecule image: {e}")
