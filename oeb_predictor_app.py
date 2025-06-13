@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jun  2 14:51:14 2025
-Updated by AI on Mon Jun 2 15:00:00 2025
-Further Updated by AI on Mon Jun 2 20:07:00 2025
-
-@author: pc
-"""
 
 import numpy as np
 import pandas as pd
