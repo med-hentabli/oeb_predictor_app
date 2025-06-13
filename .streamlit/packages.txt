@@ -7,3 +7,5 @@ libfontconfig1 # Font configuration
 # Optional: If you also use a lot of image processing (though Pillow usually handles its own)
 # libjpeg-turbo8
 # libpng16-16
+build-essential
+cmake
