@@ -1,8 +1,7 @@
 import sys
 print(f"Python version: {sys.version}")
 print(f"System path: {sys.path}")
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 import numpy as np
 # -*- coding: utf-8 -*-
 import os
