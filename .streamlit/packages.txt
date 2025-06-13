@@ -1,6 +1,3 @@
---- a/.streamlit/packages.txt
-+++ b/.streamlit/packages.txt
-@@ -1,5 +1,9 @@
  libcairo2
  libpangocairo-1.0-0
  libfreetype6
