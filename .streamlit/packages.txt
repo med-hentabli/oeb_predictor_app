@@ -1,6 +1,6 @@
- libcairo2
- libpangocairo-1.0-0
- libfreetype6
+libcairo2
+libpangocairo-1.0-0
+libfreetype6
 +libxrender1      # Explicitly requested, but let's re-ensure
 +libfontconfig1   # Fonts
 +libsm6           # Session Management Library (often a general graphical dependency)
