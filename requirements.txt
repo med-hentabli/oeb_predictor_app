@@ -3,23 +3,10 @@ numpy
 pandas
 joblib
 matplotlib
-seaborn # if used for plots
 requests
-rdkit-pypi # crucial for RDKit
-tensorflow
+rdkit-pypi # No version specified might be best for now, or specify a non-bleeding-edge one
+tensorflow # Or tensorflow==2.10.0
 scipy
 scikit-learn
 xgboost
-optuna # if needed for deployment (usually not, but if you re-train)
-# shap # if you reactivate SHAP
-Pillow # for PIL.Image
-streamlit
-numpy
-pandas
-rdkit
-scikit-learn
-tensorflow
-keras
-joblib
-matplotlib
-seaborn
+Pillow
