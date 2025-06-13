@@ -1,11 +1,11 @@
-libcairo2
-libpangocairo-1.0-0
-libfreetype6
-libsm6 # For X server interactions
-libxrender1 # For X rendering
-libfontconfig1 # Font configuration
-# Optional: If you also use a lot of image processing (though Pillow usually handles its own)
-# libjpeg-turbo8
-# libpng16-16
-build-essential
-cmake
+--- a/.streamlit/packages.txt
++++ b/.streamlit/packages.txt
+@@ -1,5 +1,9 @@
+ libcairo2
+ libpangocairo-1.0-0
+ libfreetype6
++libxrender1      # Explicitly requested, but let's re-ensure
++libfontconfig1   # Fonts
++libsm6           # Session Management Library (often a general graphical dependency)
++libxext6         # X11 Extension Library
++libglib2.0-0     # GLib library
