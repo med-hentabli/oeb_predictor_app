@@ -13,3 +13,13 @@ xgboost
 optuna # if needed for deployment (usually not, but if you re-train)
 # shap # if you reactivate SHAP
 Pillow # for PIL.Image
+streamlit
+numpy
+pandas
+rdkit
+scikit-learn
+tensorflow
+keras
+joblib
+matplotlib
+seaborn
