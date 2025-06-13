@@ -1,16 +1,12 @@
+# -*- coding: utf-8 -*-
+import os
+os.environ['STREAMLIT_SERVER_FILE_WATCHER_TYPE'] = 'none'  # MUST be first
+
 import sys
 print(f"Python version: {sys.version}")
 print(f"System path: {sys.path}")
 
 import numpy as np
-# -*- coding: utf-8 -*-
-import os
-os.environ['STREAMLIT_SERVER_FILE_WATCHER_TYPE'] = 'none'  # Add this line
-import numpy as np
-import pandas as pd
-import joblib
-import streamlit as st
-# ... rest of your imports
 import pandas as pd
 import joblib
 import streamlit as st
@@ -18,13 +14,22 @@ import matplotlib.pyplot as plt
 from urllib.parse import quote
 import requests
 from rdkit import Chem, DataStructs
-from rdkit.Chem import Descriptors, AllChem, Draw
+from rdkit.Chem import Descriptors, AllChem
+
+# Handle RDKit drawing import with fallback
+try:
+    from rdkit.Chem import Draw
+    RDKIT_DRAW_ENABLED = True
+except ImportError as e:
+    st.warning(f"RDKit drawing disabled: {str(e)}")
+    RDKIT_DRAW_ENABLED = False
+    Draw = None
+
 from tensorflow.keras.models import load_model
 from rdkit.ML.Descriptors.MoleculeDescriptors import MolecularDescriptorCalculator
 from scipy.special import softmax
 from PIL import Image
 import io
-import os # Added for path joining
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="OEB Prediction Pro", layout="wide", page_icon="🔬")
@@ -202,7 +207,7 @@ def get_pubchem_data(compound_name):
 # --- RDKIT MOLECULE IMAGE ---
 def smiles_to_image(smiles, mol_size=(300,300)):
     """Converts SMILES to a PIL Image of the molecule with fallback."""
-    if not smiles:
+    if not RDKIT_DRAW_ENABLED or not smiles:
         return None
         
     try:
@@ -374,19 +379,24 @@ def main():
                     st.dataframe(prob_df.style.format({"Probability": "{:.2%}"}).bar(subset=["Probability"], color='lightgreen', vmin=0, vmax=1), use_container_width=True)
 
     with vis_col:
-        st.subheader("👁️ Molecule Viewer")
-        current_smiles_for_vis = st.session_state.get('smiles_input', DEFAULT_SMILES)
-        if current_smiles_for_vis:
+    st.subheader("👁️ Molecule Viewer")
+    current_smiles_for_vis = st.session_state.get('smiles_input', DEFAULT_SMILES)
+    if current_smiles_for_vis:
+        if not RDKIT_DRAW_ENABLED:
+            st.warning("Molecule rendering unavailable. Displaying SMILES instead.")
+            st.code(current_smiles_for_vis)
+        else:
             mol_image = smiles_to_image(current_smiles_for_vis)
             if mol_image:
-                st.image(mol_image, caption=f"Structure for: {current_smiles_for_vis}", use_column_width=True)
+                st.image(mol_image, caption=f"Structure: {current_smiles_for_vis}", use_column_width=True)
             else:
-                st.warning("Could not display molecule. SMILES might be invalid.")
-        else:
-            st.info("Enter a SMILES string or search PubChem to see the molecule structure.")
+                st.warning("Molecule image unavailable. Displaying SMILES instead.")
+                st.code(current_smiles_for_vis)
+    else:
+        st.info("Enter a SMILES string or search PubChem to see the molecule structure.")
 
-        if pubchem_name and pubchem_url: 
-            st.markdown(f"🔗 [View **{pubchem_name}** on PubChem]({pubchem_url})", unsafe_allow_html=True)
+    if pubchem_name and pubchem_url: 
+        st.markdown(f"🔗 [View **{pubchem_name}** on PubChem]({pubchem_url})", unsafe_allow_html=True)
 
     st.markdown("---")
     st.caption("OEB Prediction Pro | Powered by AI and Cheminformatics")
