@@ -4,6 +4,14 @@ print(f"System path: {sys.path}")
 __import__('pysqlite3')
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 import numpy as np
+# -*- coding: utf-8 -*-
+import os
+os.environ['STREAMLIT_SERVER_FILE_WATCHER_TYPE'] = 'none'  # Add this line
+import numpy as np
+import pandas as pd
+import joblib
+import streamlit as st
+# ... rest of your imports
 import pandas as pd
 import joblib
 import streamlit as st
