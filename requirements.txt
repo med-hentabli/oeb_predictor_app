@@ -1,7 +1,4 @@
---- a/requirements.txt
-+++ b/requirements.txt
-@@ -1,7 +1,7 @@
- streamlit
+streamlit
 -numpy
 +numpy==1.26.4 # IMPORTANT: Downgrade for RDKit compatibility
  pandas
