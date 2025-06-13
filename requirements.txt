@@ -1,12 +1,17 @@
-streamlit
-numpy
-pandas
-joblib
-matplotlib
-requests
-rdkit-pypi # No version specified might be best for now, or specify a non-bleeding-edge one
-tensorflow # Or tensorflow==2.10.0
-scipy
-scikit-learn
-xgboost
-Pillow
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,7 +1,7 @@
+ streamlit
+-numpy
++numpy==1.26.4 # IMPORTANT: Downgrade for RDKit compatibility
+ pandas
+ joblib
+ matplotlib
+ seaborn # Keep or remove as needed, but not part of this error
+ requests
+ rdkit-pypi==2022.9.5 # Good, this version installed!
+ tensorflow==2.14.0 # Keep this in mind, may need adjustment later if more numpy issues
+ scipy
+ scikit-learn
+ xgboost
+ Pillow
